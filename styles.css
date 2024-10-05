@@ -23,6 +23,7 @@ body {
     margin: 20px;
     width: 90%;
     max-width: 500px;
+    text-align: center;
 }
 
 /* Títulos */
@@ -96,14 +97,137 @@ button:hover {
     font-weight: bold;
 }
 
-/* Estilo general para pantallas grandes */
-@media (min-width: 768px) {
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f9e8; /* Color de fondo claro y ambiental */
+    color: #2e4d2b; /* Color de texto oscuro */
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: #3b7638; /* Color verde más oscuro */
+    font-size: 24px;
+}
+
+input[type="text"], input[type="password"], input[type="number"] {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #3b7638;
+    border-radius: 5px;
+    width: 300px; /* Tamaño mayor para pantallas grandes */
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #3b7638; /* Color verde para botones */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4caf50; /* Color más claro al pasar el ratón */
+}
+
+#fields-container {
+    margin-top: 20px;
+}
+
+#images-container img {
+    width: 100px; /* Ajustar el tamaño de las imágenes */
+    margin: 10px;
+}
+
+/* Media Queries para hacer la página responsive */
+
+/* Dispositivos móviles de Apple y Samsung */
+@media (max-width: 480px) {
     body {
-        padding: 50px;
+        padding: 5px; /* Menor padding para pantallas pequeñas */
+        margin: 15px;
     }
 
-    #login-section, #register-section, #recycle-section, #ideas-section, #materials-steps-section {
-        width: 60%;
+    h1 {
+        font-size: 28px; /* Tamaño de fuente más pequeño en pantallas pequeñas */
+    }
+
+    input[type="text"], input[type="password"], input[type="number"] {
+        width: 80%; /* Campos ocupan el 100% del ancho en pantallas pequeñas */
+    }
+
+    button {
+        width: 80%; /* Botones ocupan el 100% del ancho */
+        padding: 7px; /* Aumentar el tamaño del botón en pantallas pequeñas */
+    }
+
+    #fields-container {
+        display: flex;
+        flex-direction: column; /* Apilar campos en lugar de alinearlos horizontalmente */
+        align-items: stretch; /* Alinear al ancho del contenedor */
     }
 }
 
+/* Pantallas pequeñas a medianas (hasta 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    h1 {
+        font-size: 25px; /* Tamaño de fuente intermedio */
+    }
+
+    input[type="text"], input[type="password"], input[type="number"] {
+        width: 80%; /* Campos ocupan el 80% del ancho en pantallas medianas */
+    }
+
+    button {
+        width: 80%; /* Botones ocupan el 80% del ancho */
+    }
+
+    #fields-container {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* Pantallas medianas a grandes (hasta 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    h1 {
+        font-size: 30px; /* Tamaño de fuente más grande en pantallas grandes */
+    }
+
+    input[type="text"], input[type="password"], input[type="number"] {
+        width: 70%; /* Campos ocupan el 70% del ancho */
+    }
+
+    button {
+        width: auto; /* Botones mantienen tamaño original */
+    }
+}
+
+/* Pantallas grandes (más de 1024px) */
+@media (min-width: 1025px) {
+    h1 {
+        font-size: 30px; /* Tamaño de fuente más grande para computadoras de escritorio */
+    }
+
+    input[type="text"], input[type="password"], input[type="number"] {
+        width: 320px; /* Campos mantienen tamaño mayor en pantallas grandes */
+        text-align: center;
+    }
+
+    button {
+        width: 400px; /* Botones mantienen tamaño original */
+        align-items: center;
+        text-align: center;
+    }
+
+    /* Ajustes para pantallas de 17 pulgadas */
+    #fields-container {
+        max-width: 800px; /* Limitar el ancho del contenedor */
+        width: 100%; /* Contenedor ocupa el 100% del ancho */
+    }
+}
