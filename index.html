@@ -17,9 +17,11 @@
         <h3>Inicio de Sesión</h3>
         <form id="login-form">
             <label for="username">Usuario:</label>
+            <br>
             <input type="text" id="username" required>
-
+            <br>
             <label for="password">Contraseña:</label>
+            <br>
             <input type="password" id="password" required>
 
             <button type="button" onclick="login()">Iniciar Sesión</button>
@@ -49,9 +51,8 @@
         <h3>Reciclaje de Prendas</h3>
         <label for="quantity">Cantidad de prendas a reciclar:</label>
         <input type="number" id="quantity" min="1" required>
-        <hr>
-        <button onclick="generateFields()">Generar Campos</button>
         <br>
+        <button onclick="generateFields()">Generar Campos</button>
         <hr>
         <form id="clothing-form"></form>
         <button onclick="showRecycleIdeas()" id="recycle-btn" style="display: none;">Reciclar</button>
