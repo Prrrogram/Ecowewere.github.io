@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Mapache - Ecowere</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenido a Proyecto Mapache</h1>
+        <h2>Reciclaje de ropa</h2>
+    </header>
+
+    <!-- Sección de inicio de sesión -->
+    <section id="login-section">
+        <h3>Inicio de Sesión</h3>
+        <form id="login-form">
+            <label for="username">Usuario:</label>
+            <input type="text" id="username" required>
+
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" required>
+
+            <button type="button" onclick="login()">Iniciar Sesión</button>
+        </form>
+        <p id="login-error" class="error"></p>
+        <button id="register-button" style="display: none;" onclick="showRegisterForm()">Registrarse</button>
+    </section>
+
+    <!-- Sección de registro de usuario -->
+    <section id="register-section" style="display: none;">
+        <h3>Registro de Nuevo Usuario</h3>
+        <form id="register-form">
+            <label for="new-username">Nuevo Usuario:</label>
+            <input type="text" id="new-username" required>
+
+            <label for="new-password">Nueva Contraseña:</label>
+            <input type="password" id="new-password" required>
+
+            <button type="button" onclick="registerUser()">Registrar</button>
+        </form>
+        <p id="register-success" class="success"></p>
+        <button onclick="showLoginForm()">Volver al Inicio de Sesión</button>
+    </section>
+
+    <!-- Sección de reciclaje -->
+    <section id="recycle-section" style="display: none;">
+        <h3>Reciclaje de Prendas</h3>
+        <label for="quantity">Cantidad de prendas a reciclar:</label>
+        <input type="number" id="quantity" min="1" required>
+        <hr>
+        <button onclick="generateFields()">Generar Campos</button>
+        <br>
+        <hr>
+        <form id="clothing-form"></form>
+        <button onclick="showRecycleIdeas()" id="recycle-btn" style="display: none;">Reciclar</button>
+    </section>
+
+    <!-- Sección de ideas para reciclar -->
+    <section id="ideas-section" style="display: none;">
+        <h3>Ideas para Reciclar</h3>
+        <div class="ideas">
+            <img src="img/idea1.jpg" alt="Idea 1" onclick="showMaterialsAndSteps(1)">
+            <img src="img/idea2.jpg" alt="Idea 2" onclick="showMaterialsAndSteps(2)">
+            <img src="img/idea3.jpg" alt="Idea 3" onclick="showMaterialsAndSteps(3)">
+        </div>
+        <button onclick="resetForm()">Volver a ingresar datos</button>
+    </section>
+
+    <!-- Sección de materiales y pasos -->
+    <section id="materials-steps-section" style="display: none;">
+        <h3>Materiales y Pasos</h3>
+        <div id="materials-list"></div>
+        <div id="steps-list"></div>
+        <button onclick="resetForm()">Volver a ingresar datos</button>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
