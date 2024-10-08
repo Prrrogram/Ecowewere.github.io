@@ -1,233 +1,459 @@
+/* Paleta de colores */
+:root {
+    --primary-color: #4CAF50;
+    --primary-dark: #388E3C;
+    --primary-light: #81C784;
+    --secondary-color: #FFC107;
+    --text-color: #212121;
+    --background-color: #F5F5F5;
+    --white: #FFFFFF;
+}
+
 /* Estilos generales */
 body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(to bottom right, #e0f7fa, #b2ebf2);
-    color: #004d40;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: background-color 0.3s ease;
 }
 
-/* Sección de inicio de sesión */
-#login-section, #register-section, #recycle-section, #ideas-section, #materials-steps-section {
+/* Navegación sticky */
+nav {
+    width: 100%;
+    background-color: var(--primary-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.5s ease;
+}
+
+.nav-container {
+    max-width: 1500px;
+    margin: .05 auto;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content:last baseline;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.9);
+    padding: 5px 20px;
+    transition: padding 0.5s ease;
+}
+
+.logo {
+    color: var(--white);
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    color: var(--secondary-color);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    transition: opacity 0.5s ease;
+}
+
+.nav-links li {
+    margin: 0 20px;
+    padding: 5px;
+    font-size: 15px;
+    display: inline-block;
+}
+
+.nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.5s, transform 0.5s;
+    display: inline-block;
+}
+
+.nav-links a:hover {
+    color: var(--secondary-color);
+    transform: translateY(-2px);
+    text-decoration: dashed;
+}
+
+/* Botón de registro en el header */
+#register-header-btn {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+#register-header-btn:hover {
+    background-color: #FFD54F;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Encabezado */
+header {
+    background-image: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: var(--white);
+    width: 100%;
+    padding: 50px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
+}
+
+.header-content h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    animation: fadeInDown 1s ease-out;
+}
+
+.header-content h2 {
+    font-size: 24px;
+    font-weight: 300;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Efecto de partículas en el header */
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.particle {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: float 15s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    25% { transform: translateY(-20px) translateX(10px); }
+    50% { transform: translateY(-10px) translateX(-10px); }
+    75% { transform: translateY(-30px) translateX(5px); }
+}
+
+/* Secciones */
+section {
+    background-color: var(--white);
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin: 20px;
-    width: 90%;
-    max-width: 500px;
-    text-align: center;
-}
-
-/* Títulos */
-h1, h2 {
-    color: #00796b;
-    margin: 10px 0;
-}
-
-/* Formulario */
-input[type="text"], input[type="password"], select {
     width: 100%;
+    max-width: 600px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: var(--primary-dark);
+    position: relative;
+    display: inline-block;
+}
+
+h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+section:hover h3::after {
+    width: 100%;
+}
+
+/* Formularios */
+input[type="text"], input[type="password"], input[type="number"], select {
+    width: 80%;
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #004d40;
+    border: 1px solid #bbe782;
     border-radius: 5px;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    color: #7ab405a4;
 }
 
-input[type="text"]:focus, input[type="password"]:focus, select:focus {
-    border-color: #00796b;
+input[type="text"]:focus, input[type="password"]:focus, input[type="number"]:focus, select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-light);
 }
 
-/* Botones */
 button {
-    background-color: #00796b;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--white);
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    width: 100%;
+    margin-top: 10px;
 }
 
 button:hover {
-    background-color: #004d40;
+    background-color: var(--primary-dark);
     transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Sección de ideas de reciclaje */
+/* Sección de reciclaje */
+form#clothing-form label {
+    display: block;
+    margin-bottom: 8px;
+    text-align: left;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+form#clothing-form label:hover {
+    color: var(--primary-color);
+}
+
+form#clothing-form input, form#clothing-form select {
+    width: 95%;
+    margin-bottom: 15px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form#clothing-form input:focus, form#clothing-form select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+/* Sección de ideas */
 .ideas {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
 }
 
 .ideas img {
-    width: 150px;
-    height: 150px;
-    margin: 10px;
-    border-radius: 8px;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-    transition: transform 0.3s;
 }
 
 .ideas img:hover {
-    transform: scale(1.1);
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Listas de materiales y pasos */
-#materials-list, #steps-list {
-    background-color: #e0f2f1;
-    border-radius: 5px;
-    padding: 10px;
-    width: 100%;
-    margin: 10px 0;
-}
-
-/* Resaltar mensajes de error y éxito */
-#error-message, #register-success {
-    color: red;
-    font-weight: bold;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f9e8; /* Color de fondo claro y ambiental */
-    color: #2e4d2b; /* Color de texto oscuro */
-    margin: 0;
-    padding: 20px;
+/* Estilos para la sección de materiales y pasos */
+#materials-steps-section {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-h1 {
-    color: #3b7638; /* Color verde más oscuro */
-    font-size: 24px;
+#materials-list, #steps-list {
+    width: 100%;
+    max-width: 500px;
+    margin: 10px 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    align-items: center;
+    text-align: center;
 }
 
-input[type="text"], input[type="password"], input[type="number"] {
-    padding: 10px;
-    margin: 10px;
-    border: 1px solid #3b7638;
+#materials-list:hover, #steps-list:hover {
+    background-color: #e0e0e0;
+}
+
+#materials-list p, #steps-list p {
+    margin: 10px 0;
+    padding: 5px 10px;
+    background-color: white;
     border-radius: 5px;
-    width: 300px; /* Tamaño mayor para pantallas grandes */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-button {
-    padding: 10px 20px;
-    background-color: #3b7638; /* Color verde para botones */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+#materials-list p:hover, #steps-list p:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-button:hover {
-    background-color: #4caf50; /* Color más claro al pasar el ratón */
+/* Sección de contacto */
+#contact p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+    transition: transform 0.3s ease;
 }
 
-#fields-container {
-    margin-top: 20px;
+#contact p:hover {
+    transform: translateY(-3px);
 }
 
-#images-container img {
-    width: 100px; /* Ajustar el tamaño de las imágenes */
-    margin: 10px;
+#contact a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s, text-decoration 0.3s;
+    position: relative;
 }
 
-/* Media Queries para hacer la página responsive */
-
-/* Dispositivos móviles de Apple y Samsung */
-@media (max-width: 480px) {
-    body {
-        padding: 5px; /* Menor padding para pantallas pequeñas */
-        margin: 15px;
-    }
-
-    h1 {
-        font-size: 28px; /* Tamaño de fuente más pequeño en pantallas pequeñas */
-    }
-
-    input[type="text"], input[type="password"], input[type="number"] {
-        width: 80%; /* Campos ocupan el 100% del ancho en pantallas pequeñas */
-    }
-
-    button {
-        width: 80%; /* Botones ocupan el 100% del ancho */
-        padding: 7px; /* Aumentar el tamaño del botón en pantallas pequeñas */
-    }
-
-    #fields-container {
-        display: flex;
-        flex-direction: column; /* Apilar campos en lugar de alinearlos horizontalmente */
-        align-items: stretch; /* Alinear al ancho del contenedor */
-    }
+#contact a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--primary-color);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
 }
 
-/* Pantallas pequeñas a medianas (hasta 768px) */
-@media (min-width: 481px) and (max-width: 768px) {
-    h1 {
-        font-size: 25px; /* Tamaño de fuente intermedio */
-    }
+#contact a:hover {
+    color: var(--primary-dark);
+}
 
-    input[type="text"], input[type="password"], input[type="number"] {
-        width: 80%; /* Campos ocupan el 80% del ancho en pantallas medianas */
-    }
+#contact a:hover::after {
+    transform: scaleX(1);
+}
 
-    button {
-        width: 80%; /* Botones ocupan el 80% del ancho */
-    }
-
-    #fields-container {
-        display: flex;
+/* Diseño responsivo */
+@media (max-width: 768px) {
+    .nav-container {
         flex-direction: column;
-        align-items: stretch;
-    }
-}
-
-/* Pantallas medianas a grandes (hasta 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
-    h1 {
-        font-size: 30px; /* Tamaño de fuente más grande en pantallas grandes */
-    }
-
-    input[type="text"], input[type="password"], input[type="number"] {
-        width: 70%; /* Campos ocupan el 70% del ancho */
-    }
-
-    button {
-        width: auto; /* Botones mantienen tamaño original */
-    }
-}
-
-/* Pantallas grandes (más de 1024px) */
-@media (min-width: 1025px) {
-    h1 {
-        font-size: 30px; /* Tamaño de fuente más grande para computadoras de escritorio */
-    }
-
-    input[type="text"], input[type="password"], input[type="number"] {
-        width: 320px; /* Campos mantienen tamaño mayor en pantallas grandes */
-        text-align: center;
-    }
-
-    button {
-        width: 400px; /* Botones mantienen tamaño original */
         align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .nav-links li {
+        margin: 5px 0;
+        width: 100%;
         text-align: center;
     }
 
-    /* Ajustes para pantallas de 17 pulgadas */
-    #fields-container {
-        max-width: 800px; /* Limitar el ancho del contenedor */
-        width: 100%; /* Contenedor ocupa el 100% del ancho */
+    .nav-links a {
+        display: block;
+        padding: 10px 0;
+        width: 100%;
+    }
+
+    #register-header-btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .header-content h1 {
+        font-size: 36px;
+    }
+
+    .header-content h2 {
+        font-size: 20px;
+    }
+    header img {
+        padding: 10px;
+        height: 15%;
+        position: relative;
+        display: flexbox;
+        width: 15%;
+        font-size: 10px;
+        size: 15%;
+    }
+
+    section {
+        margin: 10px;
+        padding: 20px;
+    }
+
+    .ideas img {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content h1 {
+        font-size: 28px;
+    }
+
+    .header-content h2 {
+        font-size: 18px;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+
+    .ideas img {
+        width: 130px;
+        height: 130px;
     }
 }

@@ -4,72 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto Mapache - Ecowere</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="favicon.jpg" type="image/x-icon">
 </head>
 <body>
+    <!-- Navegación -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo"><h1>Ecowere</h1></a>
+            <button id="menu-toggle" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div id="sidebar">
+                <ul class="nav-links">
+
+                    <li><button id="register-nav-btn">Registrarse</button></li>
+                    <li><a href="#about">Sobre el Proyecto</a></li>
+                    <li><a href="#recycle-section">Reciclaje</a></li>
+                    <li><a href="#ideas-section">Ideas de Reciclaje</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </nav>
+
     <header>
-        <h1>Bienvenido a Proyecto Mapache</h1>
-        <h2>Reciclaje de ropa</h2>
+        <div class="header-content">
+            <h1>Proyecto Mapache</h1>
+            <h2>Reciclaje de Ropa</h2>
+        </div>
     </header>
 
-    <!-- Sección de inicio de sesión -->
+    <section id="welcome-section" style="display: none;">
+        <h3>¡Bienvenido, <span id="welcome-username"></span>!</h3>
+    </section>
+
     <section id="login-section">
         <h3>Inicio de Sesión</h3>
         <form id="login-form">
             <label for="username">Usuario:</label>
             <br>
             <input type="text" id="username" required>
-            <br>
             <label for="password">Contraseña:</label>
             <br>
             <input type="password" id="password" required>
-
             <button type="button" onclick="login()">Iniciar Sesión</button>
         </form>
         <p id="login-error" class="error"></p>
-        <button id="register-button" style="display: none;" onclick="showRegisterForm()">Registrarse</button>
+        <button id="register-login-btn" onclick="showRegisterForm()">Registrarse</button>
     </section>
 
-    <!-- Sección de registro de usuario -->
     <section id="register-section" style="display: none;">
         <h3>Registro de Nuevo Usuario</h3>
         <form id="register-form">
             <label for="new-username">Nuevo Usuario:</label>
+            <br>
             <input type="text" id="new-username" required>
-
+            <br>
             <label for="new-password">Nueva Contraseña:</label>
             <input type="password" id="new-password" required>
-
             <button type="button" onclick="registerUser()">Registrar</button>
         </form>
         <p id="register-success" class="success"></p>
+        <p id="register-error" class="error"></p>
         <button onclick="showLoginForm()">Volver al Inicio de Sesión</button>
     </section>
 
-    <!-- Sección de reciclaje -->
     <section id="recycle-section" style="display: none;">
         <h3>Reciclaje de Prendas</h3>
-        <label for="quantity">Cantidad de prendas a reciclar:</label>
-        <input type="number" id="quantity" min="1" required>
         <br>
+        <label for="quantity">Cantidad de prendas a reciclar:</label>
+        <input type="number" id="quantity" min="1" max="6" required>
         <button onclick="generateFields()">Generar Campos</button>
-        <hr>
         <form id="clothing-form"></form>
         <button onclick="showRecycleIdeas()" id="recycle-btn" style="display: none;">Reciclar</button>
     </section>
 
-    <!-- Sección de ideas para reciclar -->
     <section id="ideas-section" style="display: none;">
         <h3>Ideas para Reciclar</h3>
-        <div class="ideas">
-            <img src="img/idea1.jpg" alt="Idea 1" onclick="showMaterialsAndSteps(1)">
-            <img src="img/idea2.jpg" alt="Idea 2" onclick="showMaterialsAndSteps(2)">
-            <img src="img/idea3.jpg" alt="Idea 3" onclick="showMaterialsAndSteps(3)">
-        </div>
+        <div class="ideas"></div>
         <button onclick="resetForm()">Volver a ingresar datos</button>
     </section>
 
-    <!-- Sección de materiales y pasos -->
     <section id="materials-steps-section" style="display: none;">
         <h3>Materiales y Pasos</h3>
         <div id="materials-list"></div>
@@ -77,7 +98,13 @@
         <button onclick="resetForm()">Volver a ingresar datos</button>
     </section>
 
+    <section id="contact">
+        <h3>Contacto</h3>
+        <p>¿Tienes alguna duda o sugerencia? Contáctanos en <a href="mailto:info@ecowere.com">info@ecowere.com</a></p>
+        <p>Si tienes alguna consulta sobre el reciclaje de prendas o ideas para mejorar nuestro proyecto, ¡no dudes en ponerte en contacto con nosotros!</p>
+    </section>
+
     <script src="script.js"></script>
 </body>
 </html>
-
+ 

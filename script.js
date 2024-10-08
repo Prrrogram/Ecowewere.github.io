@@ -1,137 +1,130 @@
-// Función para cargar usuarios desde Local Storage
-function loadUsers() {
-    const storedUsers = localStorage.getItem('users');
-    return storedUsers ? JSON.parse(storedUsers) : [];
-}
+// Inicialización de variables globales
+let users = JSON.parse(localStorage.getItem('users')) || [];
 
-// Almacenar usuarios en Local Storage
+// Función para guardar usuarios en localStorage
 function saveUsers() {
     localStorage.setItem('users', JSON.stringify(users));
 }
 
-// Inicializar la lista de usuarios
-let users = loadUsers();
+// Función para registrar un nuevo usuario
+function registerUser() {
+    const newUsername = document.getElementById('new-username').value;
+    const newPassword = document.getElementById('new-password').value;
 
-// Función de inicio de sesión
-function login() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+    if (newUsername && newPassword) {
+        if (users.some(user => user.username === newUsername)) {
+            document.getElementById('register-error').textContent = 'El usuario ya existe. Por favor, elige otro nombre de usuario.';
+            return;
+        }
 
-    // Validar contra los datos almacenados
-    const user = users.find(user => user.username === username && user.password === password);
+        users.push({ username: newUsername, password: newPassword });
+        saveUsers();
 
-    if (user) {
-        // Ocultar el formulario de inicio de sesión y mostrar el menú de reciclaje
-        document.getElementById('login-section').style.display = 'none';
-        document.getElementById('recycle-section').style.display = 'block';
+        document.getElementById('register-success').textContent = 'Usuario registrado con éxito.';
+        document.getElementById('new-username').value = '';
+        document.getElementById('new-password').value = '';
+        document.getElementById('register-error').textContent = '';
+
+        setTimeout(() => {
+            showLoginForm();
+            document.getElementById('register-success').textContent = '';
+        }, 2000);
     } else {
-        // Mostrar un mensaje de error y el botón de registro
-        document.getElementById('login-error').textContent = 'Usuario o contraseña incorrectos.';
-        document.getElementById('register-button').style.display = 'block';
+        document.getElementById('register-error').textContent = 'Por favor, completa todos los campos.';
     }
 }
 
-// Mostrar el formulario de registro
+// Función para iniciar sesión
+function login() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    
+    const user = users.find(u => u.username === username && u.password === password);
+    
+    if (user) {
+        document.getElementById("welcome-section").style.display = "block";
+        document.getElementById("welcome-username").innerText = username;
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("recycle-section").style.display = "block";
+        document.getElementById("login-error").textContent = "";
+        document.getElementById("register-login-btn").style.display = "none";
+    } else {
+        document.getElementById("login-error").textContent = "Usuario o contraseña incorrectos.";
+        document.getElementById("register-login-btn").style.display = "block";
+    }
+}
+
+// Función para mostrar el formulario de registro
 function showRegisterForm() {
     document.getElementById('login-section').style.display = 'none';
     document.getElementById('register-section').style.display = 'block';
 }
 
-// Volver al formulario de inicio de sesión desde el registro
+// Función para mostrar el formulario de inicio de sesión
 function showLoginForm() {
     document.getElementById('register-section').style.display = 'none';
     document.getElementById('login-section').style.display = 'block';
 }
 
-// Función de registro de nuevo usuario
-function registerUser() {
-    const newUsername = document.getElementById('new-username').value;
-    const newPassword = document.getElementById('new-password').value;
-
-    // Validar que los campos no estén vacíos
-    if (newUsername && newPassword) {
-        // Agregar el nuevo usuario al array de usuarios
-        users.push({ username: newUsername, password: newPassword });
-        
-        // Guardar los usuarios actualizados en Local Storage
-        saveUsers();
-
-        // Mostrar mensaje de éxito y limpiar el formulario
-        document.getElementById('register-success').textContent = 'Usuario registrado con éxito.';
-        document.getElementById('new-username').value = '';
-        document.getElementById('new-password').value = '';
-
-        // Volver al inicio de sesión después de un breve retraso
-        setTimeout(() => {
-            document.getElementById('register-section').style.display = 'none';
-            document.getElementById('login-section').style.display = 'block';
-            document.getElementById('register-success').textContent = '';
-            document.getElementById('register-button').style.display = 'none';
-        }, 2000);
-    } else {
-        alert('Por favor, complete todos los campos');
-    }
-}
-
-// ... resto de las funciones sin cambios ...
-
-
-// Generar campos de prendas para reciclar
+// Función para generar campos de entrada de prendas
 function generateFields() {
-    const quantity = document.getElementById('quantity').value;
-    const form = document.getElementById('clothing-form');
-    form.innerHTML = ''; // Limpiar formulario previo
+    const quantity = document.getElementById("quantity").value;
+    const form = document.getElementById("clothing-form");
+    form.innerHTML = '';  // Limpiar los campos anteriores
 
-    for (let i = 0; i < quantity; i++) {
-        const label = document.createElement('label');
-        label.textContent = `Prenda ${i + 1} - Tipo de material y uso:`;
-
-        const select = document.createElement('select');
-        select.classList.add('material-select');
-        select.innerHTML = `
-            <option value="">Selecciona un tipo de material</option>
-            <option value="algodon">Algodón</option>
-            <option value="poliester">Poliéster</option>
-            <option value="lana">Lana</option>
-            <option value="jeans">Jeans</option>
-        `;
+    for (let i = 1; i <= quantity; i++) {
+        const label = document.createElement("label");
+        label.innerText = "Prenda " + i;
         form.appendChild(label);
+
+        const select = document.createElement("select");
+        const options = ["Seleccione una opcion","Lana", "Algodon", "Poliester", "Jean"];
+        options.forEach(function(option) {
+            const opt = document.createElement("option");
+            opt.value = option.toLowerCase();
+            opt.textContent = option;
+            select.appendChild(opt);
+        });
+
         form.appendChild(select);
     }
 
-    document.getElementById('recycle-btn').style.display = 'block';
+    document.getElementById("recycle-btn").style.display = "block";
 }
 
-// Función para mostrar ideas de reciclaje basadas en los tipos de prendas seleccionadas
+// Función para mostrar ideas de reciclaje
 function showRecycleIdeas() {
-    const selects = document.querySelectorAll('.material-select');
+    const selects = document.querySelectorAll('#clothing-form select');
     let selectedMaterials = [];
 
-    // Recorremos las selecciones y las agregamos a un array
     selects.forEach(select => {
         if (select.value) {
-            selectedMaterials.push(select.value);
+            selectedMaterials.push(select.value.toLowerCase());
         }
     });
 
-    // Limpiamos la sección de ideas
     const ideasSection = document.getElementById('ideas-section');
     const ideasDiv = ideasSection.querySelector('.ideas');
-    ideasDiv.innerHTML = ''; // Limpiar las imágenes previas
+    ideasDiv.innerHTML = ''; 
 
-    // Asegurarse de que el número de imágenes mostradas sea igual al número de prendas
     selectedMaterials.forEach((material) => {
         let imgSrc;
 
-        // Asignar imágenes basadas en el material
-        if (material === 'lana') {
-            imgSrc = 'idea1.jpg'; // Imagen para lana
-        } else if (material === 'algodon') {
-            imgSrc = 'idea2.jpg'; // Imagen para algodón
-        } else if (material === 'poliester') {
-            imgSrc = 'idea3.jpg'; // Imagen para poliéster
-        } else if (material === 'jeans') {
-            imgSrc = 'idea4.jpg'; // Imagen para jeans
+        switch (material) {
+            case 'lana':
+                imgSrc = 'idea1.jpg';
+                break;
+            case 'algodon':
+                imgSrc = 'idea2.jpg';
+                break;
+            case 'poliester':
+                imgSrc = 'idea3.jpg';
+                break;
+            case 'jean':
+                imgSrc = 'idea4.jpg';
+                break;
+            default:
+                imgSrc = '';
         }
 
         if (imgSrc) {
@@ -143,60 +136,93 @@ function showRecycleIdeas() {
         }
     });
 
-    // Mostrar la sección de ideas
     document.getElementById('recycle-section').style.display = 'none';
     ideasSection.style.display = 'block';
 }
 
-// Mostrar materiales y pasos de la idea seleccionada
+// Función para mostrar materiales y pasos
 function showMaterialsAndSteps(material) {
     const materialsList = document.getElementById('materials-list');
     const stepsList = document.getElementById('steps-list');
 
-    materialsList.innerHTML = ''; // Limpiar la lista de materiales anterior
-    stepsList.innerHTML = ''; // Limpiar la lista de pasos anterior
+    materialsList.innerHTML = '';
+    stepsList.innerHTML = '';
 
-    // Definir los materiales y pasos para cada tipo de prenda
     let materials, steps;
-    if (material === 'lana') {
-        materials = ['Tela de lana', 'Tijeras', 'Hilo y aguja'];
-        steps = ['Corta la tela', 'Cose los bordes', 'Dale forma final'];
-    } else if (material === 'algodon') {
-        materials = ['Tela de algodón', 'Tijeras', 'Hilo y aguja'];
-        steps = ['Corta la tela', 'Cose los bordes', 'Dale forma final'];
-    } else if (material === 'poliester') {
-        materials = ['Tela de poliéster', 'Tijeras', 'Hilo y aguja'];
-        steps = ['Corta la tela', 'Cose los bordes', 'Dale forma final'];
-    } else if (material === 'jeans') {
-        materials = ['Tela de jeans', 'Tijeras', 'Hilo y aguja'];
-        steps = ['Corta la tela', 'Cose los bordes', 'Dale forma final'];
+    
+    switch (material) {
+        case 'lana':
+            materials = ['Suéter de lana viejo', 'Tijeras de tela', 'Hilo y aguja', 'Botones decorativos (opcional)'];
+            steps = ['Lava y seca el suéter de lana', 'Corta las mangas del suéter', 'Cose los bordes cortados para evitar que se deshilachen', 'Decora con botones si lo deseas', 'Tu nueva bufanda de lana está lista'];
+            break;
+        case 'algodon':
+            materials = ['Camiseta de algodón vieja', 'Tijeras', 'Regla', 'Marcador de tela'];
+            steps = ['Lava y seca la camiseta', 'Corta la camiseta en tiras anchas', 'Estira las tiras para que se enrollen', 'Trenza las tiras', 'Usa la trenza para crear un tapete circular'];
+            break;
+        case 'poliester':
+            materials = ['Chaqueta de poliéster vieja', 'Tijeras', 'Máquina de coser', 'Cierre'];
+            steps = ['Corta la chaqueta en paneles', 'Cose los paneles para formar un bolso', 'Añade un cierre en la parte superior', 'Cose las asas del bolso', 'Tu nuevo bolso de poliéster está listo'];
+            break;
+        case 'jean':
+            materials = ['Pantalón jean viejo', 'Tijeras', 'Lija', 'Tachuelas o lentejuelas (opcional)'];
+            steps = ['Corta las piernas del jean a la altura deseada', 'Deshilacha los bordes con la lija', 'Dobla y cose el dobladillo', 'Decora con tachuelas o lentejuelas si lo deseas', 'Tus nuevos shorts de jean están listos'];
+            break;
+        default:
+            materials = ['No se encontraron materiales para este tipo de prenda'];
+            steps = ['No se encontraron pasos para este tipo de prenda'];
     }
 
-    // Mostrar los materiales
     materials.forEach(material => {
         const listItem = document.createElement('p');
         listItem.textContent = material;
         materialsList.appendChild(listItem);
     });
 
-    // Mostrar los pasos
     steps.forEach(step => {
         const listItem = document.createElement('p');
         listItem.textContent = step;
         stepsList.appendChild(listItem);
     });
 
-    // Ocultar la sección de ideas y mostrar los materiales y pasos
     document.getElementById('ideas-section').style.display = 'none';
     document.getElementById('materials-steps-section').style.display = 'block';
 }
 
-// Resetear el formulario
+// Función para reiniciar el formulario
 function resetForm() {
-    document.getElementById('materials-steps-section').style.display = 'none';
-    document.getElementById('recycle-section').style.display = 'block';
-    document.getElementById('clothing-form').innerHTML = '';
-    document.getElementById('quantity').value = '';
+    document.getElementById("ideas-section").style.display = "none";
+    document.getElementById("materials-steps-section").style.display = "none";
+    document.getElementById("recycle-section").style.display = "block";
+    document.getElementById("clothing-form").innerHTML = "";
+    document.getElementById("quantity").value = "";
+    document.getElementById("recycle-btn").style.display = "none";
 }
 
+// Función para togglear el menú
+function toggleMenu() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+}
 
+// Función de inicialización
+function init() {
+    document.getElementById('register-nav-btn').addEventListener('click', showRegisterForm);
+    document.getElementById('menu-toggle').addEventListener('click', toggleMenu);
+    document.getElementById('login-section').style.display = 'block';
+    document.getElementById('register-section').style.display = 'none';
+    document.getElementById('recycle-section').style.display = 'none';
+    document.getElementById('ideas-section').style.display = 'none';
+    document.getElementById('materials-steps-section').style.display = 'none';
+    document.getElementById('register-login-btn').style.display = 'none';
+
+    // Cerrar el menú al hacer clic en un enlace
+    const navLinks = document.querySelectorAll('#sidebar a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+        });
+    });
+}
+
+// Evento que se ejecuta cuando se carga la página
+window.onload = init;
